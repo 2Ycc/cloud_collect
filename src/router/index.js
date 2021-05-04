@@ -7,6 +7,7 @@ import NavMenu from "../components/NavMenu";
 import Register from "../views/Register";
 import testAxios from "../test/testAxios";
 
+import notfound from '../views/404'
 Vue.use(router)
 
 const Router = new router({
@@ -39,10 +40,19 @@ const Router = new router({
       path: '/register',
       component: Register
     },
-
     {
       path: "/testAxios",
       component: testAxios
+    },
+    {
+      path: '/404',
+      component: notfound,
+      hidden: true
+    },
+    {
+      path: '*',
+      redirect: '/404',
+      hidden: true
     }
   ]
 
