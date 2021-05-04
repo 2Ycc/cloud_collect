@@ -54,7 +54,7 @@ export default {
               Message.success(res.msg)
               window.localStorage.setItem('token',res.token)
               // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
-              this.$router.push('/main')
+              this.$router.push('/home')
             }else Message.error(res.msg)
             console.log(res)
           },'req')

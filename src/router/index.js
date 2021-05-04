@@ -1,13 +1,10 @@
 import Vue from 'vue'
 import router from 'vue-router'
-import Main from "../views/Main";
 import Login from "../views/Login";
-import SideNav from "../components/SideNav";
-import NavMenu from "../components/NavMenu";
 import Register from "../views/Register";
 import testAxios from "../test/testAxios";
-
 import notfound from '../views/404'
+import Home from "../views/Home";
 Vue.use(router)
 
 const Router = new router({
@@ -19,22 +16,7 @@ const Router = new router({
     },
     {
       path: '/',
-      component: Main
-    },
-    {
-      path: '/main',
-      component: Main,
-      meta: {
-        requireAuth: true // 配置此条，进入页面前判断是否需要登陆
-      }
-    },
-    {
-      path: '/sideNav',
-      component: SideNav
-    },
-    {
-      path: '/navMenu',
-      component: NavMenu
+      component: Home
     },
     {
       path: '/register',
@@ -43,6 +25,13 @@ const Router = new router({
     {
       path: "/testAxios",
       component: testAxios
+    },
+    {
+      path: '/home',
+      component: Home,
+      meta: {
+        requireAuth: true // 配置此条，进入页面前判断是否需要登陆
+      }
     },
     {
       path: '/404',
