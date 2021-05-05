@@ -5,6 +5,7 @@ import Register from "../views/Register";
 import testAxios from "../test/testAxios";
 import notfound from '../views/404'
 import Home from "../views/Home";
+import Collect from "../views/collect/Collect";
 Vue.use(router)
 
 const Router = new router({
@@ -29,6 +30,13 @@ const Router = new router({
     {
       path: '/home',
       component: Home,
+      meta: {
+        requireAuth: true // 配置此条，进入页面前判断是否需要登陆
+      }
+    },
+    {
+      path: '/collect',
+      component: Collect,
       meta: {
         requireAuth: true // 配置此条，进入页面前判断是否需要登陆
       }
