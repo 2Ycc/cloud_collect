@@ -118,7 +118,6 @@ export default {
 <style scoped>
 .collect-container{
   margin: 30px auto;
-
   width: 330px;
 }
 .collect-header{
@@ -136,7 +135,8 @@ export default {
 }
 .collect-main{
   background-color: #fff;
-
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   padding: 15px;
 }
 .collect-title{

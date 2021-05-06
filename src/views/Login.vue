@@ -38,9 +38,6 @@ export default {
           {required: true, message: '密码不可为空', trigger: 'blur'}
         ]
       },
-
-      // 对话框显示和隐藏
-      dialogVisible: false
     }
   },
   methods: {

@@ -1,14 +1,14 @@
 <template>
   <el-container class="home-container">
-    <el-menu default-active="1-1"
+    <el-menu :default-active="$route.path"
              background-color="#304156"
              text-color="#f4f4f5"
              :unique-opened=true
              class="el-menu-vertical-demo"
              @open="handleOpen"
              @close="handleClose"
-             :collapse="isCollapse">
-
+             :collapse="isCollapse"
+              router>
       <a href="#"><div class="brand-logo"><img style="margin-top: 10px" src="../assets/logo/logo.png" :width="img.width" :height="img.height" alt="img"/></div></a>
 <!--      头像-->
       <div class="head-logo">
@@ -17,16 +17,11 @@
           <span style="font-size: 12px;color: #7D848F" :hidden="isCollapse">欢迎：{{username}}</span>
         </div>
       </div>
-      <!-- 一级菜单-->
-      <el-menu-item index="1">
-        <!-- 一级菜单模板区-->
-          <!-- 图标-->
+      <el-menu-item index="/index">
           <i class="el-icon-s-home"></i>
-          <!-- 文本-->
           <span slot="title">首页</span>
       </el-menu-item>
-      <!-- 一级菜单-->
-      <el-submenu index="2">
+      <el-submenu index="">
         <!-- 一级菜单模板区-->
         <template slot="title">
           <!-- 图标-->
@@ -35,56 +30,39 @@
           <span slot="title">收藏夹</span>
         </template>
           <!-- 二级菜单-->
-        <el-menu-item index="2-0">+新建收藏夹</el-menu-item>
+        <el-menu-item index="/favorite">+新建收藏夹</el-menu-item>
           <el-menu-item v-for="item in favorite"
                         :key="item.favoriteId"
                         :index="'2-'+item.favoriteId">
             {{item.favoriteName}}
           </el-menu-item>
       </el-submenu>
-
-      <el-menu-item index="3">
-        <!-- 一级菜单模板区-->
-        <!-- 图标-->
+      <el-menu-item index="/lookAround">
         <i class="el-icon-discover"></i>
-        <!-- 文本-->
         <span slot="title">逛一逛</span>
       </el-menu-item>
-
-      <el-menu-item index="4">
-        <!-- 一级菜单模板区-->
-        <!-- 图标-->
+      <el-menu-item index="/collectTool">
         <i class="el-icon-s-cooperation"></i>
-        <!-- 文本-->
         <span slot="title">网页收藏工具</span>
       </el-menu-item>
-
-      <el-menu-item index="5">
-        <!-- 一级菜单模板区-->
-        <!-- 图标-->
+      <el-menu-item index="/collectionExport">
         <i class="el-icon-download"></i>
-        <!-- 文本-->
         <span slot="title">收藏导出</span>
       </el-menu-item>
-
-      <el-menu-item index="6">
-        <!-- 一级菜单模板区-->
-        <!-- 图标-->
+      <el-menu-item index="/collectionImport">
         <i class="el-icon-upload2"></i>
-        <!-- 文本-->
         <span slot="title">收藏导入</span>
       </el-menu-item>
-
     </el-menu>
-
     <el-container>
       <el-header>
         <a href="#" @click="collapse"><i :class="this.switch"></i></a>
         <el-button @click="logout">退出</el-button>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
-
   </el-container>
 </template>
 
@@ -114,30 +92,39 @@
 </style>
 
 <script>
+
 export default {
+  created() {
+    this.getUserFavorites()
+  },
   data() {
     return {
+      //默认显示的用户名
       username: 'Closer',
+      //默认显示的“收起”图标
       switch: 'el-icon-s-fold',
-      favorite: [{
-        favoriteId: '1',
-        favoriteName: 'CO2'
-      }, {
-        favoriteId: '2',
-        favoriteName: 'H2O'
-      }, {
-        favoriteId: '3',
-        favoriteName: '好康的'
-      }],
+      //导航栏展开与合并
       isCollapse: false,
-
+      //logo大小
       img: {
         width: '',
         height: ''
-      }
+      },
+      //用户自己的收藏夹
+      favorite: [],
     };
   },
   methods: {
+    //获取用户收藏夹
+    getUserFavorites(){
+      this.$myAjax('/favorite/getUserFavorite', 'get', '', (res) => {
+        if (res.code===200){
+          this.favorite = res.data
+        }
+        console.log(res)
+      },'req')
+    },
+    //退出
     logout(){
       window.localStorage.clear()
       this.$toast("退出")
