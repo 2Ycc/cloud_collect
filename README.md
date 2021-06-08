@@ -1,6 +1,6 @@
 # cloud_collect
 
-> A Vue.js project
+> 云收藏系统的前端
 
 ## Build Setup
 
